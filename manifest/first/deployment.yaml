@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostpath-inheritance
+  labels:
+    app: hoster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hoster
+  template:
+    metadata:
+      labels:
+        app: hoster
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.17.0
+          volumeMounts:
+            - mountPath: /tmp/archive
+              name: hostpath-sample
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              #! /bin/bash
+              NOW=$(date '+%Y%m%d%H%M%S' -d '9 hour')
+
+              cd /tmp/archive
+
+              cat <<EOF > $NOW
+              $NOW
+              EOF
+
+              ls -ltr
+
+              echo "GOOD BYE Your World"
+              echo "■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■"
+              echo "Running nginx"
+
+              if [ ! -e /tmp/archive/first_commit ]; then
+                echo "$NOW Start!" >> first_commit
+              else
+                echo "Exist!"
+              fi
+
+              /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf | tee /var/log/nginx/access.log
+      volumes:
+        - name: hostpath-sample
+          hostPath:
+            path: /tmp/archive
+            type: DirectoryOrCreate
