@@ -38,6 +38,8 @@ spec:
               echo "■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■"
               echo "Running nginx"
 
+              echo "Second"
+
               if [ ! -e /tmp/archive/first_commit ]; then
                 echo "$NOW Start!" >> first_commit
               else
