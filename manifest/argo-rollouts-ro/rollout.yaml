@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-bg
+  namespace: argo-rollouts
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: rollout-bg
+  template:
+    metadata:
+      labels:
+        app: rollout-bg
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.18.0
+          ports:
+          - containerPort: 80
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: true
+      activeService: rollout-active-service
