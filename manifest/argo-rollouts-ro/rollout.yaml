@@ -23,3 +23,6 @@ spec:
     blueGreen:
       autoPromotionEnabled: true
       activeService: rollout-active-service
+      postPromotionAnalysis:
+        template:
+        - templateName: post-bg-analysis
