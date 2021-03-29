@@ -21,8 +21,8 @@ spec:
           - containerPort: 80
   strategy:
     blueGreen:
-      autoPromotionEnabled: true
+      #autoPromotionEnabled: true
       activeService: rollout-active-service
       postPromotionAnalysis:
-        template:
+        templates:
         - templateName: post-bg-analysis
