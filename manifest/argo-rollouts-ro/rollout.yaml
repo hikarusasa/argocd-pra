@@ -22,7 +22,7 @@ spec:
   strategy:
     blueGreen:
       #autoPromotionEnabled: true
-      activeService: rollout-active-service
+      activeService: kustomizer-rollout-active-service
       postPromotionAnalysis:
         templates:
         - templateName: post-bg-analysis
