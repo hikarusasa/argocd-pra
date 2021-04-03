@@ -25,4 +25,4 @@ spec:
       activeService: kustomizer-rollout-active-service
       postPromotionAnalysis:
         templates:
-        - templateName: post-bg-analysis
+        - templateName: kustomizer-post-bg-analysis
