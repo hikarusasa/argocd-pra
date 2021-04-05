@@ -21,13 +21,24 @@ spec:
           - containerPort: 80
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
                 - kinda-worker2
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: master
+                operator: In
+                values:
+                - admin
+            topologyKey: kubernetes.io/hostname
+
   strategy:
     blueGreen:
       #autoPromotionEnabled: true
