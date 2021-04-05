@@ -26,7 +26,7 @@ spec:
             - matchExpressions:
               - key: kubernetes.io/hostname
                 operator: In
-                Values:
+                values:
                 - kinda-worker2
   strategy:
     blueGreen:
