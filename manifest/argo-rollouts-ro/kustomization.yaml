@@ -2,7 +2,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 configurations:
-- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
+- rollout-transform.yaml
 
 resources:
 - rollout.yaml
@@ -10,3 +10,12 @@ resources:
 - post-analysistemp.yaml
 
 namePrefix: kustomizer-
+
+vars:
+- name: ROLLOUT_NAME
+  objref:
+    kind: Rollout
+    name: rollout-bg
+    apiVersion: argoproj.io/v1alpha1
+  fieldRef:
+    fieldpath: metadata.name
