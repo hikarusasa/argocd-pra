@@ -12,7 +12,7 @@ spec:
     successCondition: result[0] >= {{args.success-rate}}
     provider:
       prometheus:
-        address: http://prometheus-server.monitoring.svc.cluster.local:9090
+        address: http://prometheus-server.monitoring.svc.cluster.local
         query: |
           avg(rate(kubelet_http_requests_total{instance="kinda-worker",path="metrics"}[5m])) /
           avg(rate(kubelet_http_requests_total{instance="kinda-worker",path="metrics/cadvisor"}[5m]))
