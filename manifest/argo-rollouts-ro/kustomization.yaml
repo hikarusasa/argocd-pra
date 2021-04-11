@@ -8,6 +8,7 @@ resources:
 - rollout.yaml
 - svc.yaml
 - post-analysistemp.yaml
+- analysis-template.yaml
 
 namePrefix: kustomizer-
 

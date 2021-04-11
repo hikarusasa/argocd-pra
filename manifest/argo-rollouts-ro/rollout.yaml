@@ -56,7 +56,7 @@ spec:
         - pause: {duration: 20s}
         - analysis:
             templates:
-            - templateName: ro-pra-canary
+            - templateName: kustomizer-ro-pra-canary
             args:
             - name: service-name
               value: kustomizer-rollout-active-service
