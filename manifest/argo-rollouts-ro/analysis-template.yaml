@@ -1,0 +1,18 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: ro-pra-canary
+spec:
+  args:
+  - name: service-name
+  - name: success-rate
+  metrics:
+  - name: no-pra-rate
+    successCondition: result[0] >= {{args.success-rate}}
+    provider:
+      prometheus:
+        address: http://prometheus-server.monitoring:9090
+        query: |
+          avg(rate(kubelet_http_requests_total{instance="kinda-worker",path="metrics"}[5m])) /
+          avg(rate(kubelet_http_requests_total{instance="kinda-worker",path="metrics/cadvisor"}[5m]))

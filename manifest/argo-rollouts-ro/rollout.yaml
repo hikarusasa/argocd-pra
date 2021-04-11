@@ -44,9 +44,21 @@ spec:
             topologyKey: kubernetes.io/hostname
 
   strategy:
-    blueGreen:
+    #blueGreen:
       #autoPromotionEnabled: true
-      activeService: kustomizer-rollout-active-service
-      postPromotionAnalysis:
-        templates:
-        - templateName: kustomizer-post-bg-analysis
+      #activeService: kustomizer-rollout-active-service
+      #postPromotionAnalysis:
+      #  templates:
+      #  - templateName: kustomizer-post-bg-analysis
+      canary:
+        steps:
+        - setWeight: 20
+        - pause: {duration: 20s}
+        - analysis:
+            templates:
+            - templateName: ro-pra-canary
+            args:
+            - name: service-name
+              value: kustomizer-rollout-active-service
+            - name: success-rate
+              values: 0.6
